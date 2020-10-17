@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+    implementation 'commons-io:commons-io:2.6'
+    implementation 'net.sf.saxon:Saxon-HE:10.2'
+    implementation 'org.locationtech.jts:jts-core:1.17.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+}
+
+application {
+    mainClassName = 'ch.so.agi.oereb.html4oereb.App'
+}
+
+run {
+    args = ["--xml", "https://geo.so.ch/api/oereb/extract/reduced/xml/geometry/CH233274062061", "--out", "/Users/stefan/tmp/"]          
+}
+
+test {
+    useJUnitPlatform()
+}
