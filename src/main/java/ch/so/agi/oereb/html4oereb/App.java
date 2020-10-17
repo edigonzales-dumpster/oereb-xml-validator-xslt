@@ -3,8 +3,12 @@
  */
 package ch.so.agi.oereb.html4oereb;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.saxon.s9api.SaxonApiException;
 
 public class App {
     static Logger log = LoggerFactory.getLogger(App.class);
@@ -25,7 +29,7 @@ public class App {
                 outputDirectory = args[argi];
             } else if (arg.equals("--help")) {
                 System.err.println();
-                System.err.println("--xml       The input xml file (required).");
+                System.err.println("--xml       The extract request (required).");
                 System.err.println("--out       The output directory (required).");
                 System.err.println();
                 return;
@@ -43,9 +47,20 @@ public class App {
         }
         
         log.info("xml file: " + xmlFileName);
+        log.debug("xml file: " + xmlFileName);
         
-        Extract2Html extract2Html = new Extract2Html(xmlFileName, outputDirectory);
-        extract2Html.convert();
+        try {
+            Extract2Html extract2Html = new Extract2Html(xmlFileName, outputDirectory);
+            extract2Html.convert();
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            System.exit(3);
+        } catch (SaxonApiException e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            System.exit(3);            
+        }
         
         
         System.out.println("Hallo Welt.");
