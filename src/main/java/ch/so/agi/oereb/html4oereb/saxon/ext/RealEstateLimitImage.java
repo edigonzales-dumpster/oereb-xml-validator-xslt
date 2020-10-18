@@ -144,7 +144,7 @@ public class RealEstateLimitImage implements ExtensionFunction {
                 gr.draw(polyShape);
             }
         }
-        // TODO: else empty image.
+        // TODO: else empty image? Oder ist das bereits einfach leer? -> Testen.
         
         // write image to byte[]
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
