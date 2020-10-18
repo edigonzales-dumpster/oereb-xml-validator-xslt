@@ -13,6 +13,7 @@ import java.nio.file.StandardCopyOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.so.agi.oereb.html4oereb.saxon.ext.RealEstateLimitImage;
 import ch.so.agi.oereb.html4oereb.saxon.ext.URLDecoder;
 
 import javax.xml.transform.stream.StreamSource;
@@ -43,7 +44,12 @@ public class Extract2Html {
     
     public void convert() throws IOException, SaxonApiException {
         String baseFileName = xmlFileName.substring(xmlFileName.lastIndexOf('/')+1);
-
+        
+        if (baseFileName.contains("?")) {
+            String[] parts = baseFileName.split("\\?");
+            baseFileName = parts[0];
+        }
+        
         int responseCode = 204;
         URL url = new URL(xmlFileName);
         HttpURLConnection connection = null;
@@ -78,6 +84,7 @@ public class Extract2Html {
         // Do the xml2html transformation.
         Processor proc = new Processor(false);
         proc.registerExtensionFunction(new URLDecoder());
+        proc.registerExtensionFunction(new RealEstateLimitImage());
 
         XsltCompiler comp = proc.newXsltCompiler();
         XsltExecutable exp = comp.compile(new StreamSource(xsltFile));

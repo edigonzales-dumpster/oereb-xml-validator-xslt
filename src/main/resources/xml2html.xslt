@@ -12,8 +12,6 @@
           <xsl:text> at </xsl:text>
           <xsl:value-of select="format-dateTime(data:Extract/data:CreationDate,'[Y0001]-[M01]-[D01] [H01]:[m01]:[s01]')"/>
         </title>
-        <!--<link href="https://fonts.googleapis.com/css?family=Barlow:400,700" rel="stylesheet"/> -->
-        <!--<link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:400,500,700" rel="stylesheet"/> -->
         <style>
 					body {
 						background-color: white;
@@ -53,140 +51,234 @@
         </script>
       </head>
       <body>
-      
         <!-- HIER die Infos des Requests: flavor, WITHIMAGES etc. -->
-      
         <xsl:apply-templates/>
       </body>
     </html>
   </xsl:template>
   <xsl:template match="data:Extract">
-    <h2>Logos</h2>
+    <h1>Extract</h1>
+    
     <table border="0px" class="tableContainer">
       <col style="width:30%"/>
       <col style="width:70%"/>
+      
       <tr>
         <td>
-          <strong>FederalLogo:</strong>
+          <strong>CreationDate:</strong>
         </td>
-        <td>
-      <xsl:if test="data:FederalLogo">
-        <img border="1px" alt="FederalLogo">
-          <xsl:attribute name="src">
-            <xsl:text>data:image/png;base64,</xsl:text>
-             <xsl:value-of select="data:FederalLogo"/> 
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-      
-      <xsl:if test="not(data:FederalLogo)">
-        <span style="background-color: red;"></span>
-      </xsl:if>      
+       <td>
+          <xsl:value-of select="format-dateTime(data:CreationDate,'[Y0001]-[M01]-[D01] [H01]:[m01]:[s01]')"/>
         </td>
       </tr>
       
       <tr>
         <td>
+          <strong>ConcernedTheme:</strong>
+        </td>
+       <td>
+                    <xsl:for-each select="data:ConcernedTheme">
+                            <xsl:value-of select="data:Code"/>: <xsl:value-of select="data:Text/data:Language"/> - <xsl:value-of select="data:Text/data:Text"/> <br/>
+                    </xsl:for-each>
+        </td>
+      </tr>
+       
+      <tr>
+        <td>
+          <strong>NotConcernedTheme:</strong>
+        </td>
+       <td>
+                    <xsl:for-each select="data:NotConcernedTheme">
+                            <xsl:value-of select="data:Code"/>: <xsl:value-of select="data:Text/data:Language"/> - <xsl:value-of select="data:Text/data:Text"/> <br/>
+                    </xsl:for-each>
+        </td>
+      </tr>
+       
+      <tr>
+        <td>
+          <strong>ThemeWithoutData:</strong>
+        </td>
+       <td>
+                    <xsl:for-each select="data:ThemeWithoutData">
+                            <xsl:value-of select="data:Code"/>: <xsl:value-of select="data:Text/data:Language"/> - <xsl:value-of select="data:Text/data:Text"/> <br/>
+                    </xsl:for-each>
+        </td>
+      </tr>       
+       
+      
+      <tr>
+        <td>
+          <strong>isReduced:</strong>
+        </td>
+       <td>
+                            <xsl:value-of select="data:isReduced"/>
+        </td>
+      </tr>      
+       
+      <tr>
+        <td>
+          <strong>FederalLogo:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:FederalLogo">
+            <img border="1px" alt="FederalLogo" width="20%">
+              <xsl:attribute name="src">
+                <xsl:text>data:image/png;base64,</xsl:text>
+                <xsl:value-of select="data:FederalLogo"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:FederalLogo)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <strong>FederalLogoRef:</strong>
         </td>
         <td>
-      <xsl:if test="data:FederalLogoRef">
-        <img border="1px" alt="FederalLogoRef">
-          <xsl:attribute name="src">
-            <xsl:value-of select="oereb:decodeURL(data:FederalLogoRef)"/>
-          </xsl:attribute>
-        </img>
-      </xsl:if>
+          <xsl:if test="data:FederalLogoRef">
+            <img border="1px" alt="FederalLogoRef" width="20%">
+              <xsl:attribute name="src">
+                <xsl:value-of select="oereb:decodeURL(data:FederalLogoRef)"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:FederalLogoRef)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <strong>CantonalLogo:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:CantonalLogo">
+            <img border="1px" alt="CantonalLogo" width="20%">
+              <xsl:attribute name="src">
+                <xsl:text>data:image/png;base64,</xsl:text>
+                <xsl:value-of select="data:CantonalLogo"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:CantonalLogo)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>CantonalLogoRef:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:CantonalLogoRef">
+            <img border="1px" alt="CantonalLogoRef" width="20%">
+              <xsl:attribute name="src">
+                <xsl:value-of select="oereb:decodeURL(data:CantonalLogoRef)"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:CantonalLogoRef)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <strong>MunicipalityLogo:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:MunicipalityLogo">
+            <img border="1px" alt="MunicipalityLogo" width="20%">
+              <xsl:attribute name="src">
+                <xsl:text>data:image/png;base64,</xsl:text>
+                <xsl:value-of select="data:MunicipalityLogo"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:MunicipalityLogo)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>MunicipalityLogoRef:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:MunicipalityLogoRef">
+            <img border="1px" alt="MunicipalityLogoRef" width="20%">
+              <xsl:attribute name="src">
+                <xsl:value-of select="oereb:decodeURL(data:MunicipalityLogoRef)"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:MunicipalityLogoRef)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
         </td>
       </tr>      
+      
+      <tr>
+        <td>
+          <strong>LogoPLRCadastre:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:LogoPLRCadastre">
+            <img border="1px" alt="LogoPLRCadastre" width="20%">
+              <xsl:attribute name="src">
+                <xsl:text>data:image/png;base64,</xsl:text>
+                <xsl:value-of select="data:LogoPLRCadastre"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:LogoPLRCadastre)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>LogoPLRCadastreRef:</strong>
+        </td>
+        <td>
+          <xsl:if test="data:LogoPLRCadastreRef">
+            <img border="1px" alt="LogoPLRCadastreRef" width="20%">
+              <xsl:attribute name="src">
+                <xsl:value-of select="oereb:decodeURL(data:LogoPLRCadastreRef)"/>
+              </xsl:attribute>
+            </img>
+          </xsl:if>
+          <xsl:if test="not(data:LogoPLRCadastreRef)">
+            <div style="width: 100%; background-color: orange;"> </div>
+          </xsl:if>
+        </td>
+      </tr>   
+      
     </table>
-    
-    <p>
-      <xsl:if test="data:FederalLogo">
-        <img border="1px" alt="FederalLogo">
-          <xsl:attribute name="src">
-            <xsl:text>data:image/png;base64,</xsl:text>
-<!--             <xsl:value-of select="data:FederalLogo"/> -->
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-      <xsl:if test="data:FederalLogoRef">
-        <img border="1px" alt="FederalLogoRef">
-          <xsl:attribute name="src">
-            <xsl:value-of select="oereb:decodeURL(data:FederalLogoRef)"/>
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-    </p>
-    <p>
-      <xsl:if test="CantonalLogo">
-        <img border="1px" alt="CantonalLogo">
-          <xsl:attribute name="src">
-            <xsl:text>data:image/png;base64,</xsl:text>
-            <xsl:value-of select="data:CantonalLogo"/>
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-      <xsl:if test="data:CantonalLogoRef">
-        <img border="1px" alt="CantonalLogoRef">
-          <xsl:attribute name="src">
-<!--             <xsl:value-of select="oereb:decodeURL(data:CantonalLogoRef)"/> -->
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-    </p>
-    <p>
-      <xsl:if test="MunicipalityLogo">
-        <img border="1px" alt="MunicipalityLogo">
-          <xsl:attribute name="src">
-            <xsl:text>data:image/png;base64,</xsl:text>
-            <xsl:value-of select="data:MunicipalityLogo"/>
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-      <xsl:if test="data:MunicipalityLogoRef">
-        <img border="1px" alt="MunicipalityLogoRef">
-          <xsl:attribute name="src">
-<!--             <xsl:value-of select="oereb:decodeURL(data:MunicipalityLogoRef)"/> -->
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-    </p>
-    <p>
-      <xsl:if test="LogoPLRCadastre">
-        <img border="1px" alt="LogoPLRCadastre">
-          <xsl:attribute name="src">
-            <xsl:text>data:image/png;base64,</xsl:text>
-            <xsl:value-of select="data:LogoPLRCadastre"/>
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-      <xsl:if test="data:LogoPLRCadastreRef">
-        <img border="1px" alt="LogoPLRCadastreRef">
-          <xsl:attribute name="src">
-<!--             <xsl:value-of select="oereb:decodeURL(data:LogoPLRCadastreRef)"/> -->
-          </xsl:attribute>
-        </img>
-      </xsl:if>
-    </p>
+
     <h2>
       <xsl:if test="data:isReduced='true'">
-<!--         <xsl:value-of select="$localeXml/data[@name='MainPage.TitleReduced']/value/text()"/> -->
+        <!--         <xsl:value-of select="$localeXml/data[@name='MainPage.TitleReduced']/value/text()"/> -->
       </xsl:if>
       <xsl:if test="data:isReduced='false'">
-<!--         <xsl:value-of select="$localeXml/data[@name='MainPage.Title']/value/text()"/> -->
+        <!--         <xsl:value-of select="$localeXml/data[@name='MainPage.Title']/value/text()"/> -->
       </xsl:if>
     </h2>
     <xsl:apply-templates select="data:RealEstate"/>
   </xsl:template>
   <xsl:template match="data:RealEstate">
-    <h2>Zusammenfassung Grundstück</h2>  
-    <table border="1px" class="tableContainer">
+    <h2>RealEstate</h2>
+    <table border="0px" class="tableContainer">
       <col style="width:30%"/>
       <col style="width:70%"/>
       <tr>
         <td>
-          <strong>GB-Nr.:</strong>
+          <strong>Number:</strong>
         </td>
         <td>
           <xsl:value-of select="data:Number"/>
@@ -202,7 +294,7 @@
       </tr>
       <tr>
         <td>
-          <strong>NBIdent:</strong>
+          <strong>IdentNd:</strong>
         </td>
         <td>
           <xsl:value-of select="data:IdentDN"/>
@@ -210,8 +302,12 @@
       </tr>
       <tr>
         <td>
-          <strong>Art:</strong>
+          <strong>Type:</strong>
         </td>
+        <td>
+            <xsl:value-of select="data:Type"/>
+        </td>
+        <!-- 
         <xsl:choose>
           <xsl:when test="data:Type = 'RealEstate'">
             <td>Liegenschaft</td>
@@ -220,10 +316,11 @@
             <td>Baurecht</td>
           </xsl:otherwise>
         </xsl:choose>
+         -->
       </tr>
       <tr>
         <td>
-          <strong>Fläche:</strong>
+          <strong>LandRegistryArea:</strong>
         </td>
         <td><xsl:value-of select="format-number(data:LandRegistryArea, &quot;#'###&quot;, &quot;swiss&quot;)"/>
 					m
@@ -232,7 +329,7 @@
       </tr>
       <tr>
         <td>
-          <strong>Gemeinde:</strong>
+          <strong>Municipality:</strong>
         </td>
         <td>
           <xsl:value-of select="data:Municipality"/>
@@ -240,7 +337,7 @@
       </tr>
       <tr>
         <td>
-          <strong>BFS-Nr.:</strong>
+          <strong>FosNr:</strong>
         </td>
         <td>
           <xsl:value-of select="data:FosNr"/>
@@ -248,13 +345,31 @@
       </tr>
       <tr>
         <td>
-          <strong>Grundbuch:</strong>
+          <strong>SubunitOfLandRegister:</strong>
         </td>
         <td>
           <xsl:value-of select="data:SubunitOfLandRegister"/>
         </td>
       </tr>
-    </table><!-- 
+      
+      <tr>
+        <td>
+          <strong>Limit:</strong><br/>Benötigt die Geometrie des Grundstückes und die Min-/Max-Koordinaten von PlanForLandRegisterMainPage.
+        </td>
+        <td>
+            <img border="1px" alt="CantonalLogo" width="50%">
+              <xsl:attribute name="src">
+                <xsl:text>data:image/png;base64,</xsl:text>
+                <xsl:value-of select="oereb:getRealEstateLimitImage(data:Limit, data:PlanForLandRegisterMainPage)"/>
+              </xsl:attribute>
+            </img>
+          
+          
+        </td>
+      </tr>
+            
+    </table>
+    <!-- 
     <xsl:for-each-group select="data:RestrictionOnLandownership" group-by="data:SubTheme">
       <xsl:sort data-type="number" order="ascending" select="((data:SubTheme='Grundnutzung') * 1) + ((data:SubTheme='Überlagernde Festlegung') * 2) + ((data:SubTheme='Linienbezogene Festlegung') * 3) + ((data:SubTheme='Objektbezogene Festlegung') * 4) + ((data:SubTheme='Lärmempfindlichkeitsstufen (in Nutzungszonen)') * 5) + ((data:SubTheme='Erschliessung (Flächenobjekte)') * 6) + ((data:SubTheme='Erschliessung (Linienobjekt)') * 7) + ((data:SubTheme='Orange') * 99)"/>
       <details>
@@ -383,5 +498,4 @@
     </xsl:for-each-group>
     -->
   </xsl:template>
- 
 </xsl:stylesheet>

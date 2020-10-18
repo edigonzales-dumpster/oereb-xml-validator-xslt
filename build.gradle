@@ -22,7 +22,8 @@ application {
 }
 
 run {
-    args = ["--xml", "https://geo.so.ch/api/oereb/extract/reduced/xml/geometry/CH233274062061", "--out", "/Users/stefan/tmp/"]          
+    //args = ["--xml", "https://geo.so.ch/api/oereb/extract/reduced/xml/geometry/CH233274062061", "--out", "/home/stefan/tmp/"]          
+    args = ["--xml", "https://geo.so.ch/api/oereb/extract/reduced/xml/geometry/CH233274062061?WITHIMAGES", "--out", "/home/stefan/tmp/"]          
 }
 
 test {
