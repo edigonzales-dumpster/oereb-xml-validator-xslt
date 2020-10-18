@@ -128,7 +128,7 @@ public class RealEstateLimitImage implements ExtensionFunction {
         if (!geometry.isEmpty()) {
             // Calculate the transformation between provided pixel image and real world coordinate system (parcel geometry).
             Envelope pixelEnvelope = new Envelope(new Coordinate(0, 0), new Coordinate(imageWidthPx, imageHeightPx));
-            AffinePointTransformation transformation =  new AffinePointTransformation(pixelEnvelope, worldEnvelope);
+            AffinePointTransformation transformation = new AffinePointTransformation(pixelEnvelope, worldEnvelope);
 
             gr.setColor(highlightingStrokeColorRgb);
             gr.setStroke(new BasicStroke((float) highlightingStrokeWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
@@ -144,6 +144,7 @@ public class RealEstateLimitImage implements ExtensionFunction {
                 gr.draw(polyShape);
             }
         }
+        // TODO: else empty image.
         
         // write image to byte[]
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -20,8 +20,8 @@
 						font-size: 1em;
 					}
 					summary {
-						font-size: 1.2em;
-						margin-top: 10px;
+						font-size: 1.0em;
+						/*margin-top: 10px;*/
 						font-weight: 700;
 					}
 					a {
@@ -354,7 +354,10 @@
       
       <tr>
         <td>
-          <strong>Limit:</strong><br/>Benötigt die Geometrie des Grundstückes und die Min-/Max-Koordinaten von PlanForLandRegisterMainPage.
+        <details>
+          <summary>Limit:</summary>
+          <p>Benötigt <code>&lt;Limit&gt;</code> von <code>&lt;RealEstate&gt;</code> und die Min-/Max-Koordinaten von PlanForLandRegisterMainPage.</p>
+          </details>
         </td>
         <td>
             <img border="1px" alt="CantonalLogo" width="50%">
